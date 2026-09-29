@@ -1,0 +1,964 @@
+record (stringin,"D1-I2-SYSM--:PCFPCF006-BTIME")
+{
+	field(DESC, "Boot time")
+	field(DTYP, "sysmon")
+	field(INP, "@boot_time")
+	field(PINI, "YES")
+	field(VAL, "N/A")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-CAV1")
+{
+	field(DESC, "Avg Load during last 1min")
+	field(DTYP, "sysmon")
+	field(HOPR, "100")
+	field(INP, "@load_1min:localhost")
+	field(LOPR, "0")
+	field(MDEL, "0.1")
+	field(PINI, "YES")
+	field(PREC, "2")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (stringin,"D1-I2-SYSM--:PCFPCF006-CCSV")
+{
+	field(DESC, "CODAC Core System Version")
+	field(DTYP, "sysmon")
+	field(INP, "@env:CODAC_VERSION")
+	field(PINI, "YES")
+	field(VAL, "N/A")
+}
+
+record (calcout,"D1-I2-SYSM--:PCFPCF006-CFA")
+{
+	field(CALC, "((A>=1?1:0)+(B>=1?1:0)+(C>=1?1:0)+(D>=1?1:0)+(E>=1?1:0)+(F>=1?1:0))>=1?1:0")
+	field(DESC, "Calculation for CFA633 sensor")
+	field(FLNK, "D1-I2-SYSM--:PCFPCF006-SHLTCS")
+	field(INPA, "D1-I2-SYSM--:PCFPCF006-FANSPEED1.SEVR")
+	field(INPB, "D1-I2-SYSM--:PCFPCF006-FANSPEED2.SEVR")
+	field(INPC, "D1-I2-SYSM--:PCFPCF006-FANSPEED3.SEVR")
+	field(INPD, "D1-I2-SYSM--:PCFPCF006-TEMP1.SEVR")
+	field(INPE, "D1-I2-SYSM--:PCFPCF006-TEMP2.SEVR")
+	field(INPF, "D1-I2-SYSM--:PCFPCF006-TEMP3.SEVR")
+	field(PHAS, "6")
+	field(SCAN, "1 second")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-CPUUTL")
+{
+	field(AFTC, "60")
+	field(DESC, "CPU Utilization(%)")
+	field(DTYP, "sysmon")
+	field(EGU, "%")
+	field(HHSV, "MAJOR")
+	field(HIGH, "60")
+	field(HIHI, "80")
+	field(HOPR, "100")
+	field(HSV, "MINOR")
+	field(HYST, "1")
+	field(INP, "@cpu_util:localhost")
+	field(LOPR, "0")
+	field(MDEL, "1")
+	field(PINI, "YES")
+	field(PREC, "2")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (waveform,"D1-I2-SYSM--:PCFPCF006-CTEMPARR")
+{
+	field(DESC, "List of Core Temperatures")
+	field(DTYP, "picmg")
+	field(EGU, "°C")
+	field(FTVL, "FLOAT")
+	field(INP, "@core_temp_arr")
+	field(NELM, "64")
+	field(PINI, "YES")
+	field(PREC, "1")
+	field(SCAN, "I/O Intr")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-CTEMPAVG")
+{
+	field(DESC, "Avg. temperature of Core")
+	field(DTYP, "picmg")
+	field(EGU, "°C")
+	field(HHSV, "MAJOR")
+	field(HIGH, "83")
+	field(HIHI, "105")
+	field(HOPR, "110")
+	field(HSV, "MINOR")
+	field(HYST, "1")
+	field(INP, "@core_temp_avg")
+	field(LOPR, "0")
+	field(MDEL, "0.1")
+	field(PINI, "YES")
+	field(PREC, "1")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-CTEMPMAX")
+{
+	field(DESC, "Max. temperature of Core")
+	field(DTYP, "picmg")
+	field(EGU, "°C")
+	field(HHSV, "MAJOR")
+	field(HIGH, "83")
+	field(HIHI, "105")
+	field(HOPR, "110")
+	field(HSV, "MINOR")
+	field(HYST, "1")
+	field(INP, "@core_temp_max")
+	field(LOPR, "0")
+	field(MDEL, "0.1")
+	field(PINI, "YES")
+	field(PREC, "1")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-CTEMPMIN")
+{
+	field(DESC, "Min. temperature of Core")
+	field(DTYP, "picmg")
+	field(EGU, "°C")
+	field(HHSV, "MAJOR")
+	field(HIGH, "83")
+	field(HIHI, "105")
+	field(HOPR, "110")
+	field(HSV, "MINOR")
+	field(HYST, "1")
+	field(INP, "@core_temp_min")
+	field(LOPR, "0")
+	field(MDEL, "0.1")
+	field(PINI, "YES")
+	field(PREC, "1")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-DISKFREE")
+{
+	field(DESC, "Disk Free (MB)")
+	field(DTYP, "sysmon")
+	field(EGU, "MB")
+	field(INP, "@disk_free:/")
+	field(MDEL, "10")
+	field(PINI, "YES")
+	field(PREC, "0")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-DISKMAX")
+{
+	field(DESC, "Disk Size (MB)")
+	field(DTYP, "sysmon")
+	field(EGU, "MB")
+	field(INP, "@disk_total:/")
+	field(PINI, "YES")
+	field(PREC, "0")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-DISKUTL")
+{
+	field(ADEL, "1")
+	field(AFTC, "300")
+	field(DESC, "Disk Utilization(%)")
+	field(DTYP, "sysmon")
+	field(EGU, "%")
+	field(HHSV, "MAJOR")
+	field(HIGH, "80")
+	field(HIHI, "90")
+	field(HOPR, "100")
+	field(HSV, "MINOR")
+	field(HYST, "1")
+	field(INP, "@disk_util:/")
+	field(LOPR, "0")
+	field(MDEL, "1")
+	field(PINI, "YES")
+	field(PREC, "2")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (stringin,"D1-I2-SYSM--:PCFPCF006-EPICSV")
+{
+	field(DESC, "EPICS Version")
+	field(DTYP, "sysmon")
+	field(INP, "@version:EPICSVERSION")
+	field(PINI, "YES")
+	field(VAL, "N/A")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-FDUTL")
+{
+	field(ADEL, "10")
+	field(AFTC, "60")
+	field(DESC, "File Descriptor Utilization(%)")
+	field(DTYP, "sysmon")
+	field(EGU, "%")
+	field(HHSV, "MAJOR")
+	field(HIGH, "60")
+	field(HIHI, "80")
+	field(HOPR, "100")
+	field(HSV, "MINOR")
+	field(HYST, "1")
+	field(INP, "@fd_util:localhost")
+	field(LOPR, "0")
+	field(MDEL, "0.1")
+	field(PINI, "YES")
+	field(PREC, "2")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (stringin,"D1-I2-SYSM--:PCFPCF006-HOSTNAME")
+{
+	field(DESC, "Host Name")
+	field(DTYP, "sysmon")
+	field(INP, "@env:HOSTNAME")
+	field(PINI, "YES")
+	field(VAL, "N/A")
+}
+
+record (stringin,"D1-I2-SYSM--:PCFPCF006-IPADDR")
+{
+	field(DESC, "IP Address")
+	field(DTYP, "sysmon")
+	field(INP, "@ip_addr:PON")
+	field(PINI, "YES")
+	field(VAL, "N/A")
+}
+
+record (stringin,"D1-I2-SYSM--:PCFPCF006-KERNELV")
+{
+	field(DESC, "Kernel Version")
+	field(DTYP, "sysmon")
+	field(INP, "@version:KERNELVERS")
+	field(PINI, "YES")
+	field(VAL, "N/A")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-MEMFREE")
+{
+	field(DESC, "Memory Free (KiB)")
+	field(DTYP, "sysmon")
+	field(EGU, "KB")
+	field(INP, "@mem_free:localhost")
+	field(MDEL, "1000")
+	field(PINI, "YES")
+	field(PREC, "0")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-MEMMAX")
+{
+	field(DESC, "Memory Maximum (KiB)")
+	field(DTYP, "sysmon")
+	field(EGU, "KB")
+	field(INP, "@mem_max:localhost")
+	field(PINI, "YES")
+	field(PREC, "0")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-MEMUTL")
+{
+	field(ADEL, "10")
+	field(AFTC, "60")
+	field(DESC, "Memory Utilization(%)")
+	field(DTYP, "sysmon")
+	field(EGU, "%")
+	field(HHSV, "MAJOR")
+	field(HIGH, "60")
+	field(HIHI, "80")
+	field(HOPR, "100")
+	field(HSV, "MINOR")
+	field(HYST, "1")
+	field(INP, "@mem_util:localhost")
+	field(LOPR, "0")
+	field(MDEL, "1")
+	field(PINI, "YES")
+	field(PREC, "2")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-NRBPS")
+{
+	field(ADEL, "1000")
+	field(DESC, "Recv Kbytes/sec (PON)")
+	field(DTYP, "sysmon")
+	field(EGU, "KBps")
+	field(INP, "@net_recv_bps:PON")
+	field(MDEL, "1")
+	field(PINI, "YES")
+	field(PREC, "1")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-NSBPS")
+{
+	field(ADEL, "1000")
+	field(DESC, "Send Kbytes/sec (PON)")
+	field(DTYP, "sysmon")
+	field(EGU, "KBps")
+	field(INP, "@net_send_bps:PON")
+	field(MDEL, "1")
+	field(PINI, "YES")
+	field(PREC, "1")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (stringin,"D1-I2-SYSM--:PCFPCF006-OSV")
+{
+	field(DESC, "OS Release")
+	field(DTYP, "sysmon")
+	field(INP, "@version:OSRELEASE")
+	field(PINI, "YES")
+	field(VAL, "N/A")
+}
+
+record (calcout,"D1-I2-SYSM--:PCFPCF006-PICMG")
+{
+	field(CALC, "((A>=1?1:0)+(B>=1?1:0)+(C>=1?1:0))>=1?1:0")
+	field(DESC, "Health calculation for PICMG sensors")
+	field(FLNK, "D1-I2-SYSM--:PCFPCF006-SHLTCS")
+	field(INPA, "D1-I2-SYSM--:PCFPCF006-CTEMPMAX.SEVR")
+	field(INPB, "D1-I2-SYSM--:PCFPCF006-CTEMPMIN.SEVR")
+	field(INPC, "D1-I2-SYSM--:PCFPCF006-CTEMPAVG.SEVR")
+	field(PHAS, "6")
+	field(SCAN, "1 second")
+}
+
+record (waveform,"D1-I2-SYSM--:PCFPCF006-PROCLST")
+{
+	field(DESC, "Process Name List")
+	field(DTYP, "sysmon")
+	field(FTVL, "STRING")
+	field(INP, "@proc_list")
+	field(NELM, "20")
+	field(PINI, "YES")
+}
+
+record (waveform,"D1-I2-SYSM--:PCFPCF006-PROCSTS")
+{
+	field(DESC, "Process Status List")
+	field(DTYP, "sysmon")
+	field(FTVL, "STRING")
+	field(INP, "@proc_sts")
+	field(NELM, "20")
+	field(PINI, "YES")
+	field(SCAN, "I/O Intr")
+}
+
+record (mbbiDirect,"D1-I2-SYSM--:PCFPCF006-PS")
+{
+	field(DESC, "Process/Daemon/Service Status")
+	field(DTYP, "sysmon")
+	field(INP, "@proc_ps")
+	field(PINI, "YES")
+	field(SCAN, "I/O Intr")
+}
+
+record (mbbi,"D1-I2-SYSM--:PCFPCF006-SHLT")
+{
+	field(DESC, "Synthesis Health Status")
+	field(INP, "D1-I2-SYSM--:PCFPCF006-SHLTC")
+	field(ONST, "Partially Operational(1)")
+	field(ONSV, "MINOR")
+	field(ONVL, "1")
+	field(PHAS, "9")
+	field(PINI, "YES")
+	field(SCAN, "1 second")
+	field(THST, "Not Operational")
+	field(THSV, "MAJOR")
+	field(THVL, "3")
+	field(TWST, "Partially Operational(2)")
+	field(TWSV, "MINOR")
+	field(TWVL, "2")
+	field(ZRST, "Fully Operational")
+	field(ZRSV, "NO_ALARM")
+	field(ZRVL, "0")
+}
+
+record (calcout,"D1-I2-SYSM--:PCFPCF006-SHLTC")
+{
+	field(CALC, "(A>=3?3:A)")
+	field(DESC, "Final Calculation for SHLT")
+	field(FLNK, "D1-I2-SYSM--:PCFPCF006-SHLT")
+	field(INPA, "D1-I2-SYSM--:PCFPCF006-SHLTCS")
+	field(PHAS, "8")
+	field(SCAN, "1 second")
+}
+
+record (calcout,"D1-I2-SYSM--:PCFPCF006-SHLTCL")
+{
+	field(CALC, "(A>=1?1:0)+(B>=1?1:0)+(C>=1?1:0)+(D>=1?1:0)+((E>=1?1:0)||(F>=1?1:0))")
+	field(DESC, "Local PV calculation for SHLT")
+	field(FLNK, "D1-I2-SYSM--:PCFPCF006-SHLTCS")
+	field(INPA, "D1-I2-SYSM--:PCFPCF006-CPUUTL.SEVR")
+	field(INPB, "D1-I2-SYSM--:PCFPCF006-MEMUTL.SEVR")
+	field(INPC, "D1-I2-SYSM--:PCFPCF006-DISKUTL.SEVR")
+	field(INPD, "D1-I2-SYSM--:PCFPCF006-FDUTL.SEVR")
+	field(INPE, "D1-I2-SYSM--:PCFPCF006-PS.SEVR")
+	field(INPF, "D1-I2-SYSM--:PCFPCF006-PROCSTS.SEVR")
+	field(PHAS, "6")
+	field(SCAN, "1 second")
+}
+
+record (calcout,"D1-I2-SYSM--:PCFPCF006-SHLTCS")
+{
+	field(CALC, "A+(B>=1?1:0)+(C>=1?1:0)")
+	field(DESC, "Calculation for synthesis health status")
+	field(FLNK, "D1-I2-SYSM--:PCFPCF006-SHLTC")
+	field(INPA, "D1-I2-SYSM--:PCFPCF006-SHLTCL")
+	field(INPB, "D1-I2-SYSM--:PCFPCF006-PICMG")
+	field(INPC, "D1-I2-SYSM--:PCFPCF006-CFA")
+	field(PHAS, "7")
+	field(SCAN, "1 second")
+}
+
+record (calcout,"D1-I2-SYSM--:PCFPCF006-SYSHLT")
+{
+	field(CALC, "((A>=1?1:0)|(B>=1?2:0)|(C>=1?4:0)|(D>=1?8:0))&(B>2?0:15)")
+	field(DESC, "System health")
+	field(FLNK, "D1-I2-SYSM--:PCFPCF006-SYSHLTS")
+	field(HIGH, "1")
+	field(HSV, "MINOR")
+	field(INPA, "D1-I2-SYSM--:PCFPCF006-CPUUTL.SEVR")
+	field(INPB, "D1-I2-SYSM--:PCFPCF006-MEMUTL.SEVR")
+	field(INPC, "D1-I2-SYSM--:PCFPCF006-DISKUTL.SEVR")
+	field(INPD, "D1-I2-SYSM--:PCFPCF006-FDUTL.SEVR")
+	field(SCAN, "1 second")
+}
+
+record (mbbi,"D1-I2-SYSM--:PCFPCF006-SYSHLTS")
+{
+	field(DESC, "System Health Summary")
+	field(EIST, "FD utilization high")
+	field(EISV, "MINOR")
+	field(EIVL, "8")
+	field(ELST, "CPU, Mem, FD alarm")
+	field(ELSV, "MINOR")
+	field(ELVL, "11")
+	field(FFST, "CPU,Mem,Disk,FD alarm")
+	field(FFSV, "MINOR")
+	field(FFVL, "15")
+	field(FRST, "Disk utilization high")
+	field(FRSV, "MINOR")
+	field(FRVL, "4")
+	field(FTST, "Mem, Disk, FD alarm")
+	field(FTSV, "MINOR")
+	field(FTVL, "14")
+	field(FVST, "CPU, Disk util high")
+	field(FVSV, "MINOR")
+	field(FVVL, "5")
+	field(INP, "D1-I2-SYSM--:PCFPCF006-SYSHLT")
+	field(NIST, "CPU, FD util high")
+	field(NISV, "MINOR")
+	field(NIVL, "9")
+	field(ONST, "CPU utilization high")
+	field(ONSV, "MINOR")
+	field(ONVL, "1")
+	field(PINI, "YES")
+	field(SCAN, "Passive")
+	field(SVST, "CPU, Mem, Disk util high")
+	field(SVSV, "MINOR")
+	field(SVVL, "7")
+	field(SXST, "Mem, Disk util high")
+	field(SXSV, "MINOR")
+	field(SXVL, "6")
+	field(TEST, "Mem, FD util high")
+	field(TESV, "MINOR")
+	field(TEVL, "10")
+	field(THST, "CPU, Mem util high")
+	field(THSV, "MINOR")
+	field(THVL, "3")
+	field(TTST, "CPU, Disk, FD alarm")
+	field(TTSV, "MINOR")
+	field(TTVL, "13")
+	field(TVST, "Disk, FD util high")
+	field(TVSV, "MINOR")
+	field(TVVL, "12")
+	field(TWST, "Memory utilization high")
+	field(TWSV, "MINOR")
+	field(TWVL, "2")
+	field(UNSV, "MINOR")
+	field(VAL, "15")
+	field(ZRST, "OK")
+	field(ZRSV, "NO_ALARM")
+	field(ZRVL, "0")
+}
+
+record (stringin,"D1-I2-SYSM--:PCFPCF006-SYSM-BECTME")
+{
+	field(DESC, "CA Beacon time")
+	field(DTYP, "IOC epics var")
+	field(INP, "@EPICS_CA_BEACON_PERIOD")
+	field(PINI, "YES")
+	field(VAL, "N/A")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-CACLNTC")
+{
+	field(DESC, "Number of current CA clients")
+	field(DTYP, "IOC stats")
+	field(INP, "@ca_clients")
+	field(PREC, "0")
+	field(SCAN, "I/O Intr")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-CAPVC")
+{
+	field(DESC, "Number of current CA connections for PV")
+	field(DTYP, "IOC stats")
+	field(INP, "@ca_connections")
+	field(PREC, "0")
+	field(SCAN, "I/O Intr")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-CBHQHI")
+{
+	field(DESC, "Max # of elmts in IOC's cbHigh queue")
+	field(DTYP, "IOC stats")
+	field(FLNK, "D1-I2-SYSM--:PCFPCF006-SYSM-CBHQHIP")
+	field(INP, "@cbHighQueueHiWtrMrk")
+	field(PINI, "YES")
+	field(SCAN, "I/O Intr")
+}
+
+record (calc,"D1-I2-SYSM--:PCFPCF006-SYSM-CBHQHIP")
+{
+	field(CALC, "100*A/B")
+	field(DESC, "Max. usage of IOC's cbHigh queue")
+	field(EGU, "%")
+	field(HOPR, "100")
+	field(INPA, "D1-I2-SYSM--:PCFPCF006-SYSM-CBHQHI NPP MS")
+	field(INPB, "D1-I2-SYSM--:PCFPCF006-SYSM-CBQSIZE NPP MS")
+	field(LOPR, "0")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-CBHQOVR")
+{
+	field(DESC, "# of overruns of IOC's cbHigh queue")
+	field(DTYP, "IOC stats")
+	field(INP, "@cbHighQueueOverruns")
+	field(PINI, "YES")
+	field(SCAN, "I/O Intr")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-CBLQHI")
+{
+	field(DESC, "Max # of elmts in IOC's cbLow queue")
+	field(DTYP, "IOC stats")
+	field(FLNK, "D1-I2-SYSM--:PCFPCF006-SYSM-CBLQHIP")
+	field(INP, "@cbLowQueueHiWtrMrk")
+	field(PINI, "YES")
+	field(SCAN, "I/O Intr")
+}
+
+record (calc,"D1-I2-SYSM--:PCFPCF006-SYSM-CBLQHIP")
+{
+	field(CALC, "100*A/B")
+	field(DESC, "Max. usage of IOC's cbLow queue")
+	field(EGU, "%")
+	field(HOPR, "100")
+	field(INPA, "D1-I2-SYSM--:PCFPCF006-SYSM-CBLQHI NPP MS")
+	field(INPB, "D1-I2-SYSM--:PCFPCF006-SYSM-CBQSIZE NPP MS")
+	field(LOPR, "0")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-CBLQOVR")
+{
+	field(DESC, "# of overruns of IOC's cbLow queue")
+	field(DTYP, "IOC stats")
+	field(INP, "@cbLowQueueOverruns")
+	field(PINI, "YES")
+	field(SCAN, "I/O Intr")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-CBMQHI")
+{
+	field(DESC, "Max # of elmts in IOC's cbMedium queue")
+	field(DTYP, "IOC stats")
+	field(FLNK, "D1-I2-SYSM--:PCFPCF006-SYSM-CBMQHIP")
+	field(INP, "@cbMediumQueueHiWtrMrk")
+	field(PINI, "YES")
+	field(SCAN, "I/O Intr")
+}
+
+record (calc,"D1-I2-SYSM--:PCFPCF006-SYSM-CBMQHIP")
+{
+	field(CALC, "100*A/B")
+	field(DESC, "Max. usage of IOC's cbMedium queue")
+	field(EGU, "%")
+	field(HOPR, "100")
+	field(INPA, "D1-I2-SYSM--:PCFPCF006-SYSM-CBMQHI NPP MS")
+	field(INPB, "D1-I2-SYSM--:PCFPCF006-SYSM-CBQSIZE NPP MS")
+	field(LOPR, "0")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-CBMQOVR")
+{
+	field(DESC, "# of overruns of IOC's cbMedium queue")
+	field(DTYP, "IOC stats")
+	field(INP, "@cbMediumQueueOverruns")
+	field(PINI, "YES")
+	field(SCAN, "I/O Intr")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-CBQSIZE")
+{
+	field(DESC, "Max # entries in IOC callback queue")
+	field(DTYP, "IOC stats")
+	field(INP, "@cbQueueSize")
+	field(PINI, "YES")
+}
+
+record (stringin,"D1-I2-SYSM--:PCFPCF006-SYSM-CONTMO")
+{
+	field(DESC, "CA Connection timeout")
+	field(DTYP, "IOC epics var")
+	field(INP, "@EPICS_CA_CONN_TMO")
+	field(PINI, "YES")
+	field(VAL, "N/A")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-CPUUTL")
+{
+	field(ADEL, "10")
+	field(AFTC, "60")
+	field(DESC, "IOC CPU Load(%)")
+	field(DTYP, "IOC stats")
+	field(EGU, "%")
+	field(HHSV, "MAJOR")
+	field(HIGH, "60")
+	field(HIHI, "80")
+	field(HOPR, "100")
+	field(HSV, "MINOR")
+	field(HYST, "1")
+	field(INP, "@ioc_cpuload")
+	field(LOPR, "0")
+	field(MDEL, "1")
+	field(PINI, "YES")
+	field(PREC, "2")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-DBCLC")
+{
+	field(DESC, "Number of CA database links connected")
+	field(DTYP, "DBCLC")
+	field(FLNK, "D1-I2-SYSM--:PCFPCF006-SYSM-DBDLC")
+	field(PREC, "0")
+	field(SCAN, "10 second")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-DBDLC")
+{
+	field(DESC, "Number of CA database links disconnected")
+	field(DTYP, "DBDLC")
+	field(PREC, "0")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-DBRECC")
+{
+	field(DESC, "Number of records")
+	field(DTYP, "IOC stats")
+	field(INP, "@records")
+	field(PINI, "YES")
+	field(PREC, "0")
+	field(VAL, "NaN")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-FDUTL")
+{
+	field(ADEL, "10")
+	field(AFTC, "60")
+	field(DESC, "IOC File Descriptor Utilization(%)")
+	field(DTYP, "IOC stats")
+	field(EGU, "%")
+	field(HHSV, "MAJOR")
+	field(HIGH, "60")
+	field(HIHI, "80")
+	field(HOPR, "100")
+	field(HSV, "MINOR")
+	field(HYST, "1")
+	field(INP, "@utilfd")
+	field(LOPR, "0")
+	field(MDEL, "0.1")
+	field(PINI, "YES")
+	field(PREC, "2")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (calcout,"D1-I2-SYSM--:PCFPCF006-SYSM-HB")
+{
+	field(CALC, "(A<2147483647)?A+1:1")
+	field(DESC, "Heartbeat counters")
+	field(INPA, "D1-I2-SYSM--:PCFPCF006-SYSM-HB")
+	field(SCAN, "1 second")
+}
+
+record (lsi,"D1-I2-SYSM--:PCFPCF006-SYSM-IOCDIR")
+{
+	field(DESC, "IOC Start-up Directory")
+	field(DTYP, "IOC long string")
+	field(INP, "@iocdir")
+	field(PINI, "YES")
+	field(SIZV, "256")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-MEMUTL")
+{
+	field(ADEL, "10")
+	field(AFTC, "60")
+	field(DESC, "IOC Memory Load(%)")
+	field(DTYP, "IOC stats")
+	field(EGU, "%")
+	field(HHSV, "MAJOR")
+	field(HIGH, "60")
+	field(HIHI, "80")
+	field(HOPR, "100")
+	field(HSV, "MINOR")
+	field(HYST, "1")
+	field(INP, "@utilmem")
+	field(LOPR, "0")
+	field(MDEL, "1")
+	field(PINI, "YES")
+	field(PREC, "2")
+	field(SCAN, "I/O Intr")
+	field(VAL, "NaN")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-PID")
+{
+	field(DESC, "IOC Process ID")
+	field(DTYP, "IOC stats")
+	field(INP, "@proc_id")
+	field(PINI, "YES")
+	field(PREC, "0")
+	field(VAL, "NaN")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-SOQHI")
+{
+	field(DESC, "Max # of elmts in IOC's scanOnce queue")
+	field(DTYP, "IOC stats")
+	field(FLNK, "D1-I2-SYSM--:PCFPCF006-SYSM-SOQHIP")
+	field(INP, "@scanOnceQueueHiWtrMrk")
+	field(PINI, "YES")
+	field(SCAN, "I/O Intr")
+}
+
+record (calc,"D1-I2-SYSM--:PCFPCF006-SYSM-SOQHIP")
+{
+	field(CALC, "100*A/B")
+	field(DESC, "Max. usage of IOC's scanOnce queue")
+	field(EGU, "%")
+	field(HOPR, "100")
+	field(INPA, "D1-I2-SYSM--:PCFPCF006-SYSM-SOQHI NPP MS")
+	field(INPB, "D1-I2-SYSM--:PCFPCF006-SYSM-SOQSIZE NPP MS")
+	field(LOPR, "0")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-SOQOVR")
+{
+	field(DESC, "# of overruns of IOC's scanOnce queue")
+	field(DTYP, "IOC stats")
+	field(INP, "@scanOnceQueueOverruns")
+	field(PINI, "YES")
+	field(SCAN, "I/O Intr")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-SYSM-SOQSIZE")
+{
+	field(DESC, "Max # entries in IOC scanOnce queue")
+	field(DTYP, "IOC stats")
+	field(INP, "@scanOnceQueueSize")
+	field(PINI, "YES")
+}
+
+record (sub,"D1-I2-SYSM--:PCFPCF006-SYSM-STOP")
+{
+	field(BRSV, "INVALID")
+	field(DESC, "Stop IOC")
+	field(L, "1")
+	field(SEVR, "0")
+	field(SNAM, "rebootProc")
+	field(STAT, "0")
+}
+
+record (stringin,"D1-I2-SYSM--:PCFPCF006-SYSM-STTOD")
+{
+	field(DESC, "IOC Startup time")
+	field(DTYP, "Soft Timestamp")
+	field(INP, "@%Y-%m-%d %H:%M:%S")
+	field(PINI, "YES")
+	field(VAL, "N/A")
+}
+
+record (stringin,"D1-I2-SYSM--:PCFPCF006-SYSM-SVPORT")
+{
+	field(DESC, "CA Server Port")
+	field(DTYP, "IOC epics var")
+	field(INP, "@EPICS_CA_SERVER_PORT")
+	field(PINI, "YES")
+	field(VAL, "N/A")
+}
+
+record (stringin,"D1-I2-SYSM--:PCFPCF006-TDEVICE")
+{
+	field(DESC, "Configured clock source")
+	field(DTYP, "sysmon")
+	field(INP, "@tcnd_device")
+	field(PINI, "YES")
+	field(SCAN, "I/O Intr")
+	field(VAL, "N/A")
+}
+
+record (stringin,"D1-I2-SYSM--:PCFPCF006-TIME")
+{
+	field(DESC, "Current time")
+	field(DTYP, "sysmon")
+	field(INP, "@curr_time")
+	field(PINI, "YES")
+	field(SCAN, "1 second")
+	field(VAL, "N/A")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-TMAXOFF")
+{
+	field(DESC, "Clock offset - maximum")
+	field(DTYP, "sysmon")
+	field(EGU, "ns")
+	field(INP, "@tcnd_offset:MAXOFF")
+	field(MDEL, "10")
+	field(PREC, "0")
+	field(SCAN, "I/O Intr")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-TMEANOFF")
+{
+	field(DESC, "Clock offset - average")
+	field(DTYP, "sysmon")
+	field(EGU, "ns")
+	field(INP, "@tcnd_offset:MEANOFF")
+	field(MDEL, "10")
+	field(PREC, "0")
+	field(SCAN, "I/O Intr")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-TMINOFF")
+{
+	field(DESC, "Clock offset - minimum")
+	field(DTYP, "sysmon")
+	field(EGU, "ns")
+	field(INP, "@tcnd_offset:MINOFF")
+	field(MDEL, "10")
+	field(PREC, "0")
+	field(SCAN, "I/O Intr")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-TOFFSET")
+{
+	field(ADEL, "100000")
+	field(DESC, "Clock offset between system and device")
+	field(DTYP, "sysmon")
+	field(EGU, "ns")
+	field(HIGH, "10000")
+	field(HSV, "MINOR")
+	field(HYST, "100")
+	field(INP, "@tcnd_offset:OFFSET")
+	field(LOW, "-10000")
+	field(LSV, "MINOR")
+	field(MDEL, "10")
+	field(PREC, "0")
+	field(SCAN, "I/O Intr")
+}
+
+record (mbbi,"D1-I2-SYSM--:PCFPCF006-TSTATUS")
+{
+	field(DESC, "System Health Summary")
+	field(DTYP, "sysmon")
+	field(FRST, "TCN degraded")
+	field(FRSV, "MINOR")
+	field(FRVL, "4")
+	field(FVST, "Free running")
+	field(FVSV, "MINOR")
+	field(FVVL, "5")
+	field(INP, "@tcnd_status")
+	field(ONST, "Initializing")
+	field(ONSV, "MINOR")
+	field(ONVL, "1")
+	field(PINI, "YES")
+	field(SCAN, "I/O Intr")
+	field(SVST, "TCNd not running")
+	field(SVSV, "MAJOR")
+	field(SVVL, "7")
+	field(SXST, "Static")
+	field(SXSV, "MINOR")
+	field(SXVL, "6")
+	field(THST, "Degraded")
+	field(THSV, "MINOR")
+	field(THVL, "3")
+	field(TWST, "Synchronizing")
+	field(TWSV, "MINOR")
+	field(TWVL, "2")
+	field(UNSV, "MAJOR")
+	field(VAL, "7")
+	field(ZRST, "Operational")
+	field(ZRSV, "NO_ALARM")
+	field(ZRVL, "0")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-TSTDOFF")
+{
+	field(DESC, "Clock offset - standard deviation")
+	field(DTYP, "sysmon")
+	field(EGU, "ns")
+	field(HIGH, "1000")
+	field(HSV, "MINOR")
+	field(HYST, "10")
+	field(INP, "@tcnd_offset:STDOFF")
+	field(LOW, "-1000")
+	field(LSV, "MINOR")
+	field(MDEL, "10")
+	field(PREC, "0")
+	field(SCAN, "I/O Intr")
+}
+
+record (ai,"D1-I2-SYSM--:PCFPCF006-TUPTIME")
+{
+	field(DESC, "Uptime of TCNd")
+	field(DTYP, "sysmon")
+	field(EGU, "s")
+	field(HIGH, "3153600000")
+	field(INP, "@tcnd_uptime")
+	field(LOW, "0")
+	field(PREC, "0")
+	field(SCAN, "I/O Intr")
+}
+
+record (stringin,"D1-I2-SYSM--:PCFPCF006-TVERSION")
+{
+	field(DESC, "Version of TCNd")
+	field(DTYP, "sysmon")
+	field(INP, "@tcnd_version")
+	field(PINI, "YES")
+	field(SCAN, "I/O Intr")
+	field(VAL, "N/A")
+}
+

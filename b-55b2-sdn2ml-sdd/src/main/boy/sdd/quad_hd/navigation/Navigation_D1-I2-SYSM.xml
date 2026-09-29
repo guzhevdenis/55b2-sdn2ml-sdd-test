@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- 
+  BOY Files Navigation
+  CODAC-VERSION: 7.4.0
+  WARNING: This is an SDD generated file. Contact codac-support for any query.
+-->
+
+ <CBS name="SYSM" description="Plant System I&amp;C - &apos;D1-I2&apos;s System Monitoring Summary" enabled="true" opi_file="./mimics/D1-I2-SYSM.opi LEVEL=ITER-D1-I2-SYSM" deprecated="false" alarm_root="/CODAC_AlarmHandler/D1/D1-I2/D1-I2-SYSM" xmlns:xi="http://www.w3.org/2001/XInclude" ></CBS>

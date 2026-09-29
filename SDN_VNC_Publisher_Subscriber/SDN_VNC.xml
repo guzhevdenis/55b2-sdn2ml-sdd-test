@@ -1,0 +1,10 @@
+<topic  name="SDN_VNC" version="1" description="New SDN Variable" >
+<attribute name="timestamp" dataType="uint64_t" description="Topic instance" unit="ns - nanosecond" qualifier="timestamp"  rank="1"/>
+<attribute name="id" dataType="uint64_t" description="Topic instance" unit="" qualifier="samplenb"  rank="2"/>
+<attribute name="fuelRatio" dataType="double" description="" unit="" qualifier=""  rank="3"/>
+<attribute name="ionicTemperature" dataType="float" multiplicity="5" description="" unit="" qualifier=""  rank="4"/> 
+<attribute name="radiationIntencity" dataType="float" multiplicity="6" rank="5"/>
+<attribute name="energeticSpectrum" dataType="float" description="" unit="" qualifier=""  rank="7"/>
+<attribute name="fullPower" dataType="float" description="" unit="" qualifier=""  rank="8"/>
+<attribute name="fullIntencity" dataType="float" description="" unit="" qualifier=""  rank="9"/>
+</topic>

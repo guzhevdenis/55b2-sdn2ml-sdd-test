@@ -1,0 +1,49 @@
+# ============================
+# Build and binary artifacts
+# ============================
+**/iocdump/
+**/autosave/
+# Runtime artifacts
+/b-55b2-sdn2ml-sdd/var/iocshell/.iocsh_history
+/var/ioclog/
+/var/iodump/
+/var/tmp/
+/iocBoot/*/autosave/
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+*.dll
+*.dylib
+*.bin
+*.elf
+*.log
+*.tmp
+
+# ============================
+# Maven / Java build folders
+# ============================
+target/
+build/
+dist/
+dependency-reduced-pom.xml
+
+# ============================
+# IDE / Editor
+# ============================
+*.swp
+*.swo
+*.user
+*.workspace
+*.project
+*.iml
+.idea/
+.vscode/
+
+# ============================
+# NI FPGA files
+# ============================
+# Keep lvbitx FPGA binaries – required for deployment
+!*.lvbitx

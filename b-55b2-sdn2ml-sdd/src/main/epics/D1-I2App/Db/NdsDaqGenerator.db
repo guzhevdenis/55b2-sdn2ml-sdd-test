@@ -1,0 +1,172 @@
+# SIMULATOR nds-daq-generator: 8 count-rate channels (no hardware).
+# Naming follows 55b2-vnc-sdd Nds3Sender CountRate PV, numbered 00..07.
+
+record(ai, "$(PREFIX)-CountRate00") {
+    field(DESC, "SIMULATOR count rate ch00")
+    field(DTYP, "asynFloat64")
+    field(SCAN, "I/O Intr")
+    field(INP, "@asyn($(DEVICE),0)CountRate00")
+    field(EGU, "cps")
+    field(PREC, "2")
+}
+
+record(ai, "$(PREFIX)-CountRate01") {
+    field(DESC, "SIMULATOR count rate ch01")
+    field(DTYP, "asynFloat64")
+    field(SCAN, "I/O Intr")
+    field(INP, "@asyn($(DEVICE),0)CountRate01")
+    field(EGU, "cps")
+    field(PREC, "2")
+}
+
+record(ai, "$(PREFIX)-CountRate02") {
+    field(DESC, "SIMULATOR count rate ch02")
+    field(DTYP, "asynFloat64")
+    field(SCAN, "I/O Intr")
+    field(INP, "@asyn($(DEVICE),0)CountRate02")
+    field(EGU, "cps")
+    field(PREC, "2")
+}
+
+record(ai, "$(PREFIX)-CountRate03") {
+    field(DESC, "SIMULATOR count rate ch03")
+    field(DTYP, "asynFloat64")
+    field(SCAN, "I/O Intr")
+    field(INP, "@asyn($(DEVICE),0)CountRate03")
+    field(EGU, "cps")
+    field(PREC, "2")
+}
+
+record(ai, "$(PREFIX)-CountRate04") {
+    field(DESC, "SIMULATOR count rate ch04")
+    field(DTYP, "asynFloat64")
+    field(SCAN, "I/O Intr")
+    field(INP, "@asyn($(DEVICE),0)CountRate04")
+    field(EGU, "cps")
+    field(PREC, "2")
+}
+
+record(ai, "$(PREFIX)-CountRate05") {
+    field(DESC, "SIMULATOR count rate ch05")
+    field(DTYP, "asynFloat64")
+    field(SCAN, "I/O Intr")
+    field(INP, "@asyn($(DEVICE),0)CountRate05")
+    field(EGU, "cps")
+    field(PREC, "2")
+}
+
+record(ai, "$(PREFIX)-CountRate06") {
+    field(DESC, "SIMULATOR count rate ch06")
+    field(DTYP, "asynFloat64")
+    field(SCAN, "I/O Intr")
+    field(INP, "@asyn($(DEVICE),0)CountRate06")
+    field(EGU, "cps")
+    field(PREC, "2")
+}
+
+record(ai, "$(PREFIX)-CountRate07") {
+    field(DESC, "SIMULATOR count rate ch07")
+    field(DTYP, "asynFloat64")
+    field(SCAN, "I/O Intr")
+    field(INP, "@asyn($(DEVICE),0)CountRate07")
+    field(EGU, "cps")
+    field(PREC, "2")
+}
+
+# HMI controls (added for the test-stand OPI; were not present initially).
+record(ao, "$(PREFIX)-BaseRate") {
+    field(DESC, "SIMULATOR shared count-rate setpoint")
+    field(DTYP, "asynFloat64")
+    field(OUT, "@asyn($(DEVICE),0)BaseRate")
+    field(EGU, "cps")
+    field(PREC, "2")
+    field(PINI, "YES")
+    field(VAL, "1000")
+    field(DRVL, "0")
+    field(DRVH, "1e7")
+}
+
+record(bo, "$(PREFIX)-Enable") {
+    field(DESC, "SIMULATOR generation start/stop (follows StateMachine RUNNING)")
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(DEVICE),0)Enable")
+    field(ZNAM, "STOP")
+    field(ONAM, "START")
+    field(PINI, "YES")
+    field(VAL, "0")
+}
+
+record(bi, "$(PREFIX)-EnableRBV") {
+    field(DESC, "SIMULATOR generation running")
+    field(DTYP, "asynInt32")
+    field(INP, "@asyn($(DEVICE),0)EnableRBV")
+    field(SCAN, "I/O Intr")
+    field(ZNAM, "STOPPED")
+    field(ONAM, "RUNNING")
+}
+
+record(mbbi, "$(PREFIX)-StateMachine-getGlobalState") {
+    field(DESC, "Get global DAQ generator state")
+    field(DTYP, "asynInt32")
+    field(SCAN, "Passive")
+    field(PINI, 1)
+    field(INP, "@asyn($(DEVICE), 0)StateMachine-getGlobalState")
+    field(ZRVL, 0)
+    field(ZRST, "UNKNOWN")
+    field(ONVL, 1)
+    field(ONST, "OFF")
+    field(TWVL, 2)
+    field(TWST, "SWITCHING_OFF")
+    field(THVL, 3)
+    field(THST, "INITIALIZING")
+    field(FRVL, 4)
+    field(FRST, "ON")
+    field(FVVL, 5)
+    field(FVST, "STOPPING")
+    field(SXVL, 6)
+    field(SXST, "STARTING")
+    field(SVVL, 7)
+    field(SVST, "RUNNING")
+    field(EIVL, 8)
+    field(EIST, "FAULT")
+}
+
+record(mbbi, "$(PREFIX)-StateMachine-getState") {
+    field(DESC, "Get local DAQ generator state")
+    field(DTYP, "asynInt32")
+    field(SCAN, "I/O Intr")
+    field(PINI, 1)
+    field(INP, "@asyn($(DEVICE), 0)StateMachine-getState")
+    field(ZRVL, 0)
+    field(ZRST, "UNKNOWN")
+    field(ONVL, 1)
+    field(ONST, "OFF")
+    field(TWVL, 2)
+    field(TWST, "SWITCHING_OFF")
+    field(THVL, 3)
+    field(THST, "INITIALIZING")
+    field(FRVL, 4)
+    field(FRST, "ON")
+    field(FVVL, 5)
+    field(FVST, "STOPPING")
+    field(SXVL, 6)
+    field(SXST, "STARTING")
+    field(SVVL, 7)
+    field(SVST, "RUNNING")
+    field(EIVL, 8)
+    field(EIST, "FAULT")
+}
+
+record(mbbo, "$(PREFIX)-StateMachine-setState") {
+    field(DESC, "Set local DAQ generator state")
+    field(DTYP, "asynInt32")
+    field(SCAN, "Passive")
+    field(PINI, 1)
+    field(OUT, "@asyn($(DEVICE), 0)StateMachine-setState")
+    field(ONVL, 1)
+    field(ONST, "OFF")
+    field(FRVL, 4)
+    field(FRST, "ON")
+    field(SVVL, 7)
+    field(SVST, "RUNNING")
+}
