@@ -1,0 +1,5 @@
+<topic name="vnc-mp1-topic" version="1.0" description="VNC MP1 latest-value count-rate aggregation prototype">
+  <attribute name="timestamp" dataType="uint64" description="Aggregation time, Unix/POSIX nanoseconds since 1970-01-01" unit="ns" qualifier="" rank="1"/>
+  <attribute name="sequenceNumber" dataType="uint64" description="Output counter, starts at zero on process restart" unit="" qualifier="" rank="2"/>
+  <attribute name="totalCountRate" dataType="double" description="Sum of latest 48 rates; channels start at zero and retain their last received value" unit="cps" qualifier="" rank="3"/>
+</topic>
