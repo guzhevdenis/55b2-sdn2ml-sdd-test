@@ -245,7 +245,7 @@ SDN transport header со своими counter/timestamps остаётся от�
 ```sh
 make -C src/main/c++/vnc-mp1 CODAC_ROOT=/opt/codac
 make -C src/main/c++/vnc-mp1 test
-src/main/c++/vnc-mp1/bin/vnc-mp1 lo "$PWD/src/main/resources" 100
+target/bin/vnc-mp1 lo "$PWD/src/main/resources" 100
 ```
 
 `lo` подходит только для локального стенда: текущие IOC также используют `INTERFACE=lo`.
@@ -254,10 +254,24 @@ CLI `-` вместо интерфейса читает `SDN_INTERFACE_NAME`; э�
 
 ```sh
 export SDN_INTERFACE_NAME=<SDN_NIC>
-src/main/c++/vnc-mp1/bin/vnc-mp1 - "$PWD/src/main/resources"
+target/bin/vnc-mp1 - "$PWD/src/main/resources"
 ```
 
 Новый Makefile подключается существующим wildcard `src/main/c++/Makefile`.
+Цель `all` родительского Makefile явно вызывает сборку подкаталогов.
+При прямой сборке из `src/main/c++/vnc-mp1` и при Maven-сборке из
+`target/main/c++/vnc-mp1` результаты размещаются относительно корня unit:
+
+* `target/bin/vnc-mp1` — программа;
+* `target/obj/vnc-mp1/` — объектные файлы и зависимости заголовков;
+* `target/test/bin/vnc-mp1-processing-test` — тест алгоритма.
+
+Корень вывода можно переопределить абсолютным путём `BUILD_ROOT=/path/to/build`.
+`clean` удаляет только перечисленные результаты MP1. XML остаются в каталоге
+ресурсов; цель `install` копирует программу и семь XML в `PREFIX/bin` и `TOPIC_DIR`
+с поддержкой `DESTDIR`. Размещение бинарника в `target/bin` соответствует §B.4.12
+CODAC Application Development, но само по себе не настраивает аргументы `mvn run`.
+
 Зависимости: CODAC `sdn-core`, `ccs-core`, `log`, libxml2, pthread, rt.
 Основание — [nds-sdn/Makefile](../nds-sdn/Makefile); NDS3 и legacy `sdn` facade
 не используются новым executable. libxml2 указана явно для inline XML parser.
