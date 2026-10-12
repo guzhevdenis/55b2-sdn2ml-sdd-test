@@ -1,0 +1,10 @@
+<topic name="pcf0-nds-sdn-topic" version="1.0" description="SDN variables for PCF0CORE simulated count-rate (nds-daq-generator)">
+  <attribute name="CountRate00" dataType="double" description="SIMULATOR count rate channel 00" unit="cps" qualifier="" rank="1"/>
+  <attribute name="CountRate01" dataType="double" description="SIMULATOR count rate channel 01" unit="cps" qualifier="" rank="2"/>
+  <attribute name="CountRate02" dataType="double" description="SIMULATOR count rate channel 02" unit="cps" qualifier="" rank="3"/>
+  <attribute name="CountRate03" dataType="double" description="SIMULATOR count rate channel 03" unit="cps" qualifier="" rank="4"/>
+  <attribute name="CountRate04" dataType="double" description="SIMULATOR count rate channel 04" unit="cps" qualifier="" rank="5"/>
+  <attribute name="CountRate05" dataType="double" description="SIMULATOR count rate channel 05" unit="cps" qualifier="" rank="6"/>
+  <attribute name="CountRate06" dataType="double" description="SIMULATOR count rate channel 06" unit="cps" qualifier="" rank="7"/>
+  <attribute name="CountRate07" dataType="double" description="SIMULATOR count rate channel 07" unit="cps" qualifier="" rank="8"/>
+</topic>

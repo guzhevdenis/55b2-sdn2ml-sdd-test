@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- 
+  BOY Files Navigation
+  CODAC-VERSION: 7.4.0
+  WARNING: This is an SDD generated file. Contact codac-support for any query.
+-->
+
+ <CBS name="D1" description="Diagnostic measurement systems for machine protection, plasma control, and physics exploitation, PBS{55,57}" enabled="true" opi_file="./mimics/D1_Mimic.opi LEVEL=ITER-D1" deprecated="false" alarm_root="/CODAC_AlarmHandler/D1" xmlns:xi="http://www.w3.org/2001/XInclude" >
+     <xi:include href="Navigation_D1-I2.xml" >
+         <xi:fallback ></xi:fallback>
+</xi:include>
+
+     <xi:include href="Navigation_D1-SYSM.xml" >
+         <xi:fallback ></xi:fallback>
+</xi:include>
+</CBS>
