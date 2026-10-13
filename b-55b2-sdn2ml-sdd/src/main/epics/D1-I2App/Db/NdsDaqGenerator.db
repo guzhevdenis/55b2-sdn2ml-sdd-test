@@ -87,7 +87,7 @@ record(ao, "$(PREFIX)-BaseRate") {
 }
 
 record(bo, "$(PREFIX)-Enable") {
-    field(DESC, "SIMULATOR generation start/stop (follows StateMachine RUNNING)")
+    field(DESC, "SIMULATOR generation start/stop")
     field(DTYP, "asynInt32")
     field(OUT, "@asyn($(DEVICE),0)Enable")
     field(ZNAM, "STOP")

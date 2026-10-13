@@ -1,13 +1,15 @@
-# NDS test drivers for 55b2-sdn2ml-sdd
+# NDS test drivers for 55b2-sdn2ml-sdd and I&C application for subscribing and publising 
 
 SIMULATOR stack for PCF0CORE..PCF5CORE. This is **not** production data acquisition.
 
 ## Drivers
 
-| Directory | Role | Notes |
-|-----------|------|--------|
 | `nds-daq-generator` | Simulated count-rate source. 8 PVs `CountRate00`..`CountRate07`, thread update every 100 ms. 
 | `nds-sdn` | Subscribes to NDS PVs from nds-daq-generator 
+
+## I&C Programms 
+
+| `vnc-sdn-service` | Application for data processing: sdn-publisher and nds-subscriber.
 
 
 ## HMI
@@ -23,6 +25,7 @@ Eclipse `.project` links that name to `/opt/codac/opi/boy/resources/templates`, 
 
 Per-IOC NDS-DAQ NDS-SDN mapping: `src/main/resources/pcfN-nds-sdn-conf.xml`  
 Per-IOC topic definition: `src/main/resources/pcfN-nds-sdn-topic.xml`
+Measurement Parameters topic definition `src/main/resources/vnc-mpN-topic.xml`
 
 ## Network configuration
 
@@ -30,6 +33,12 @@ Per-IOC topic definition: `src/main/resources/pcfN-nds-sdn-topic.xml`
 with `codac-configure sdn_interface` and  `export SDN_INTERFACE_NAME`. 
 
 - Topic XML must be installed where CODAC SDN discovery can find it (default location /etc/opt/codac/sdn)
+
+- To archive several topics at once, need to add them in `/etc/opt/codac/sdn_archiver/sdn-archiver_config.xml`. To start archiving:
+
+```bash
+sdn-archiver-service start
+```
 
 ## Authors
 

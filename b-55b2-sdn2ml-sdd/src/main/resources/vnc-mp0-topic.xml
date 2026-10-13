@@ -1,0 +1,3 @@
+<topic name="vnc-mp0-topic" version="1.0" description="VNC MP0 latest-value count-rate aggregation prototype">
+  <attribute name="totalCountRate" dataType="double" description="Sum of latest 48 rates; channels start at zero and retain their last received value" unit="cps" qualifier="" rank="3"/>
+</topic>

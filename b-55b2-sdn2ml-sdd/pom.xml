@@ -125,6 +125,10 @@
                         <package name="archive">
                             <include configuration="D1-beauty.xml" type="beauty" />
                         </package>
+                        <package name="vnc-sdn-service">
+                            <include name="vnc-sdn-service" realtime="true" exectype="codac-service" type="program" />
+                            <requires codac="true" buildonly="true">codac-unit-templates</requires>
+                        </package>
                     </packaging>
                 </configuration>
             </plugin>

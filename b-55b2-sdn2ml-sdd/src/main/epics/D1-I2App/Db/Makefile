@@ -30,6 +30,7 @@ DB += PSH0-D1-I2-SYSM-iocD1-I2-PSH0SYSM.db
 # SIMULATOR nds-daq-generator and nds-sdn (PCF0CORE..PCF5CORE)
 DB += NdsDaqGenerator.db
 DB += NdsSdnPublisher.db
+DB += MasterStateMachines.db
 
 # Automagically install .proto files
 DB += $(notdir $(wildcard ../*.proto))

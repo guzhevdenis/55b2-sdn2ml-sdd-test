@@ -14,6 +14,6 @@ ndsCreateDevice(NdsDaqGenerator, G-3)
 # INTERFACE=lo follows nds3-sdn EPICS example. Production 55b2-vnc-sdd PCF5CORE used enp37s0f0.
 # TODO: set INTERFACE / SDN_INTERFACE_NAME to the test-stand SDN NIC if loopback is not accepted.
 ndsLoadDriver $(PWD)/../c++/nds-sdn/lib/libnds3-sdn-publisher.so
-ndsCreateDevice(DeviceNDSSDNPUB, "SDN-3","INTERFACE=lo","TOPICNAME=pcf3-nds-sdn-topic","PVS_CONFIG_PATH=$(PWD)/../resources/pcf3-nds-sdn-conf.xml")
+ndsCreateDevice(DeviceNDSSDNPUB, "SDN-3","INTERFACE=ens192","TOPICNAME=pcf3-nds-sdn-topic","PVS_CONFIG_PATH=$(PWD)/../resources/pcf3-nds-sdn-conf.xml")
 
 #- End-of-file marker - do not delete or add lines below!
