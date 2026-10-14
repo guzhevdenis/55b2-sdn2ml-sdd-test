@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <stdexcept>
 namespace vnc
 {
     // Load the topic data
@@ -39,10 +40,9 @@ namespace vnc
 
         // Better make_unique, but we in C++11 standart
         m_subscriber.reset(new sdn::Subscriber(m_topic));
-        m_subscriber->SetInterface(interface.c_str());
-
-        // Check configuration
-        m_subscriber->Configure();
+        if (m_subscriber->SetInterface(interface.c_str()) != STATUS_SUCCESS ||
+            m_subscriber->Configure() != STATUS_SUCCESS || m_subscriber->GetSocket() < 0)
+            throw std::runtime_error("Cannot configure subscriber: " + name);
 
         std::cout << m_topic.GetName() << " " << "topic is subscribed" << std::endl;
 
@@ -55,7 +55,7 @@ namespace vnc
         // STATUS_ERROR also covers empty queues and invalid packets in this API.
         if (m_subscriber->Receive(static_cast<std::uint64_t>(0)) != STATUS_SUCCESS) return false;
         const unsigned char* payload = static_cast<const unsigned char*>(m_subscriber->GetTopicInstance());
-        //if (!payload) throw std::runtime_error("Subscriber has no payload");
+        if (!payload) return false;
         for (std::size_t i = 0; i < kChannelCount; ++i) {
             unsigned char bytes[sizeof(double)];
             //Get data from each channel
@@ -73,9 +73,9 @@ namespace vnc
         parseXmlTopic(m_topic, name, directory);
 
         m_publisher.reset(new sdn::Publisher(m_topic));
-        m_publisher->SetInterface(interface.c_str());
-
-        m_publisher->Configure();
+        if (m_publisher->SetInterface(interface.c_str()) != STATUS_SUCCESS ||
+            m_publisher->Configure() != STATUS_SUCCESS)
+            throw std::runtime_error("Cannot configure publisher: " + name);
         std::cout << m_topic.GetName() << " " << "topic is ready to be published" << std::endl;
 
         // TODO. Add exception throwing
@@ -84,7 +84,7 @@ namespace vnc
     bool VncOutputPublisher::publish(const OutputData& output)
     {
         // Logic for one topic only
-        m_topic.SetAttribute("totalCountRate", &output.outputValue);
-        m_publisher->Publish();
+        if (!m_topic.SetAttribute("totalCountRate", &output.outputValue)) return false;
+        return m_publisher->Publish() == STATUS_SUCCESS;
     }
 }
