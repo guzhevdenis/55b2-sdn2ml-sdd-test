@@ -118,12 +118,12 @@ int main(int argc, char **argv)
             const std::int64_t skipped = (finished - next) / vnc::kPeriodsNs + 1;
             skippedPeriods += static_cast<std::uint64_t>(skipped);
             next += skipped * vnc::kPeriodsNs;
+        }
+    
     }
-
     std::cout << "cycles = " << cycles << " skipped periods = " << skippedPeriods
               << " publish errors = " << publishErrors
               << " max wake lateness ns = " << maxWakeLatenessNs
               << " max work ns = " << maxWorksNs << std::endl;
     return 0;
     }
-} 
