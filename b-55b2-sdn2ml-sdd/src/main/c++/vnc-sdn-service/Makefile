@@ -8,10 +8,13 @@ CXX ?= g++
 CODAC_ROOT ?= /opt/codac
 PREFIX ?= $(CODAC_ROOT)
 TOPIC_DIR ?= /etc/opt/codac/sdn
-CPPFLAGS += -I$(CODAC_ROOT)/include -I/usr/include/libxml2
-CXXFLAGS += -std=c++11 -O2 -g -Wall -Wextra -pthread
-LDFLAGS += -L$(CODAC_ROOT)/lib -Wl,-rpath,$(CODAC_ROOT)/lib
-LDLIBS += -lsdn-core -lccs-core -lxml2 -llog -lrt -lpthread
+
+ONNX_ROOT ?= $(abspath ../onnxruntime-linux-x64-1.21.0)
+CPPFLAGS += -I$(CODAC_ROOT)/include -I/usr/include/libxml2 -I$(ONNX_ROOT)/include
+
+CXXFLAGS += -std=c++17 -O2 -g -Wall -Wextra -pthread
+LDFLAGS += -L$(CODAC_ROOT)/lib -Wl,-rpath,$(CODAC_ROOT)/lib -L$(ONNX_ROOT)/lib -Wl,-rpath,$(ONNX_ROOT)/lib
+LDLIBS += -lsdn-core -lccs-core -lxml2 -llog -lrt -lpthread -l:libonnxruntime.so.1
 SOURCES = vnc-sdn-service.cpp VncSdnPubSub.cpp VncDataProcessing.cpp
 OBJECTS = $(addprefix $(OBJECT_DIR)/,$(SOURCES:.cpp=.o))
 TOPICS = $(wildcard ../../resources/pcf*-nds-sdn-topic.xml) ../../resources/vnc-mp1-topic.xml
@@ -26,6 +29,7 @@ $(PROGRAM): $(OBJECTS) Makefile
 $(OBJECT_DIR)/%.o: %.cpp Makefile
 	mkdir -p "$(@D)"
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -MMD -MP -c "$<" -o "$@"
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -MMD -MP -c $< -o $@
 
 #bin/processing-test: tests/ProcessingTest.cpp Processing.cpp Processing.h
 #	mkdir -p bin

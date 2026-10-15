@@ -40,9 +40,10 @@ namespace vnc
 
         // Better make_unique, but we in C++11 standart
         m_subscriber.reset(new sdn::Subscriber(m_topic));
-        if (m_subscriber->SetInterface(interface.c_str()) != STATUS_SUCCESS ||
-            m_subscriber->Configure() != STATUS_SUCCESS || m_subscriber->GetSocket() < 0)
-            throw std::runtime_error("Cannot configure subscriber: " + name);
+        m_subscriber->SetInterface(interface.c_str());
+
+        // Check configuration
+        m_subscriber->Configure();
 
         std::cout << m_topic.GetName() << " " << "topic is subscribed" << std::endl;
 
@@ -73,9 +74,13 @@ namespace vnc
         parseXmlTopic(m_topic, name, directory);
 
         m_publisher.reset(new sdn::Publisher(m_topic));
-        if (m_publisher->SetInterface(interface.c_str()) != STATUS_SUCCESS ||
+
+
+        if(m_publisher->SetInterface(interface.c_str()) != STATUS_SUCCESS || 
             m_publisher->Configure() != STATUS_SUCCESS)
-            throw std::runtime_error("Cannot configure publisher: " + name);
+            throw std::runtime_error ("cannot configure publisher");
+
+        m_publisher->Configure();
         std::cout << m_topic.GetName() << " " << "topic is ready to be published" << std::endl;
 
         // TODO. Add exception throwing
@@ -84,7 +89,7 @@ namespace vnc
     bool VncOutputPublisher::publish(const OutputData& output)
     {
         // Logic for one topic only
-        if (!m_topic.SetAttribute("totalCountRate", &output.outputValue)) return false;
+        if (!m_topic.SetAttribute("totalPower", &output.outputValue)) return false;;
         return m_publisher->Publish() == STATUS_SUCCESS;
     }
 }
