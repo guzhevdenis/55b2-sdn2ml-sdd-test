@@ -89,7 +89,7 @@ namespace vnc
     bool VncOutputPublisher::publish(const OutputData& output)
     {
         // Logic for one topic only
-        if (!m_topic.SetAttribute("totalPower", &output.outputValue)) return false;;
+        if (!m_topic.SetAttribute("totalCountRate", &output.outputValue)) return false;;
         return m_publisher->Publish() == STATUS_SUCCESS;
     }
 }

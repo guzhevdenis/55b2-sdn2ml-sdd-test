@@ -42,6 +42,7 @@ bool waitUntil (std::int64_t deadline)
 
 int main(int argc, char **argv)
 {
+    std::ofstream logFile{"/home/codac-dev/55b2-sdn2ml-sdd/55b2-sdn2ml-sdd/b-55b2-sdn2ml-sdd/src/main/c++/vnc-sdn-service/logs/vnc_calc_log.txt"};
     // TODO. Make it via configuration file
     std::string inputInterface{"ens192"};
     std::string outputInterface{"ens192"};
@@ -99,9 +100,12 @@ int main(int argc, char **argv)
                 if (!subscribers[i]->subscribe(rates)) break; 
                 InputData.update(i, rates);
             }
+           
         }
         if (stopRequested) break; 
 
+        const vnc::InputData& d = InputData.data();
+        logFile << "input data " << d[0][0] << std::endl;
         if(InputData.takeUpdated() && !processor.process(InputData.data(), outputData))
             ++inferenceErrors;
         for (std::size_t i = 0; i < vnc::kPlasmaParamCount; ++i)
