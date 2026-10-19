@@ -1,6 +1,7 @@
 #include "VncDataProcessing.h"
 #include <onnxruntime_cxx_api.h>
 #include <vector>
+#include <cmath>
 #include <iostream>
 #include <fstream>
 
@@ -80,10 +81,12 @@ namespace vnc {
     bool MlProcessing::process(const InputData &data, OutputData &output)
     {
         std::size_t k = 0; 
+        // First kModelChannelCount count rates (PCF0..PCF2, all channels).
+        // The model was trained on ln(count rate); empty channels (0) are passed as 0.
         for (const IocCountRates& rates : data)
-        //Here is the logic for selection which Count rates we should take
-            for (std::size_t ch = 0; ch < 24; ch++){
-                    m_impl->input[k++] = static_cast<float>(rates[ch]);
+            for (std::size_t ch = 0; ch < kChannelCount && k < kModelChannelCount; ++ch) {
+                const double rate = rates[ch];
+                m_impl->input[k++] = rate > 0.0 ? static_cast<float>(std::log(rate)) : 0.0f;
             }
         m_impl->logFile << std::endl;  
 
