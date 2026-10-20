@@ -41,6 +41,7 @@ private:
     nds::StateMachine m_stateMachine;
     std::array<nds::PVVariableIn<double>, kChannelCount> m_countRatePVs;
     nds::PVVariableOut<double> m_baseRatePV;
+    nds::PVVariableIn<std::int64_t> m_topicTimestamp;
     nds::PVVariableOut<std::int32_t> m_enablePV;
     nds::PVVariableIn<std::int32_t> m_enableRbvPV;
     std::atomic<bool> m_stop;

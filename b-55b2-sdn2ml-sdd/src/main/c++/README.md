@@ -26,6 +26,7 @@ Eclipse `.project` links that name to `/opt/codac/opi/boy/resources/templates`, 
 Per-IOC NDS-DAQ NDS-SDN mapping: `src/main/resources/pcfN-nds-sdn-conf.xml`  
 Per-IOC topic definition: `src/main/resources/pcfN-nds-sdn-topic.xml`
 Measurement Parameters topic definition `src/main/resources/vnc-mpN-topic.xml`
+N is the number for MP from SubSRD document.
 
 ## Network configuration
 

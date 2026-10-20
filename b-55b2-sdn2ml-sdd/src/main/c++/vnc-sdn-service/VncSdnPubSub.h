@@ -8,6 +8,7 @@
 
 namespace vnc
 {
+
     class VncInputSubscriber
     {
     public:

@@ -1,5 +1,6 @@
 #include "VncDataProcessing.h"
 #include <onnxruntime_cxx_api.h>
+#include "Timestamping.h"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -22,7 +23,6 @@ Ort::SessionOptions makeSessionOptions()
     return options;
 }
 }
-
 
 
 namespace vnc {
@@ -80,14 +80,17 @@ namespace vnc {
     bool MlProcessing::process(const InputData &data, OutputData &output)
     {
         std::size_t k = 0; 
+        //First kModelChannelCount count rates (PCF0...PCF2, all channels).
+        //The model was trained on ln(count rate); empty channels are passed as 0;
+        //Later on the mechanism to define which count rate to use should be defined 
         for (const IocCountRates& rates : data)
         //Here is the logic for selection which Count rates we should take
-            for (std::size_t ch = 0; ch < 24; ch++){
-                    m_impl->input[k++] = static_cast<float>(rates[ch]);
+            for (std::size_t ch = 0; ch < kChannelCount && kModelChannelCount; ch++){
+                    const double rate = rates[ch];
+                    m_impl->input[k++] = rate > 0.0 ? static_cast<float>(std::log(rate)): 0.0f;
             }
         m_impl->logFile << std::endl;  
 
-            
         const char *inputNames[] = {m_impl->inputName.c_str()};
         const char *outputNames[] = {m_impl->outputName.c_str()};
 
@@ -100,6 +103,7 @@ namespace vnc {
         
 
         output.outputValue = result[0].GetTensorData<float>()[0];
+        output.timestamp = monotonicNs();
         m_impl->logFile << " output value " << output.outputValue << std::endl;
 
         return true;

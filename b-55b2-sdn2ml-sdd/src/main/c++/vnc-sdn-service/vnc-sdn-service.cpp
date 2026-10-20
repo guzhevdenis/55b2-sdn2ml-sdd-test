@@ -1,4 +1,5 @@
 #include "VncSdnPubSub.h"
+#include "VncDataProcessing.h"
 #include <poll.h>
 #include <cerrno>
 #include <chrono>
@@ -8,36 +9,27 @@
 #include <stdexcept>
 #include <time.h>
 #include <cstring>
+#include "Timestamping.h"
 
 volatile std::sig_atomic_t stopRequested = 0;
 void stop(int) { stopRequested = 1; };
+    //TO DO: Fix to TCN get time
 
+    // Stops thread execution until deadline time
+    bool waitUntil (std::int64_t deadline)
+    {
+        timespec next{};
+        next.tv_sec = static_cast<time_t> (deadline / 1000000000LL); 
+        next.tv_nsec = static_cast<long> (deadline % 1000000000LL);
+        while(!stopRequested) {
+            const int error = ::clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next, nullptr);
+            if (error == 0) return !stopRequested;
+            if (error != EINTR)
+                throw std::runtime_error(std::string("clock nanosleep : ") + std::strerror(error));
 
-//TO DO: Fix to TCN get time
-std::int64_t monotonicNs()
-{
-    timespec now{}; 
-    if (::clock_gettime(CLOCK_MONOTONIC, &now)!= 0)
-        throw std::runtime_error("clock gettime failed");
-    return static_cast<std::int64_t>(now.tv_sec) * 1000000000LL + now.tv_nsec;
-
-}
-
-// Stops thread execution until deadline time
-bool waitUntil (std::int64_t deadline)
-{
-    timespec next{};
-    next.tv_sec = static_cast<time_t> (deadline / 1000000000LL); 
-    next.tv_nsec = static_cast<long> (deadline % 1000000000LL);
-    while(!stopRequested) {
-        const int error = ::clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next, nullptr);
-        if (error == 0) return !stopRequested;
-        if (error != EINTR)
-            throw std::runtime_error(std::string("clock nanosleep : ") + std::strerror(error));
-
+        }
+        return false;
     }
-    return false;
-}
 
 
 int main(int argc, char **argv)
@@ -46,7 +38,7 @@ int main(int argc, char **argv)
     // TODO. Make it via configuration file
     std::string inputInterface{"ens192"};
     std::string outputInterface{"ens192"};
-    // Directory for ML models 
+    // Directory for all resources
     const std::string resourceDir{
         "/home/codac-dev/55b2-sdn2ml-sdd/55b2-sdn2ml-sdd/b-55b2-sdn2ml-sdd/src/main/resources"};
 
@@ -70,16 +62,12 @@ int main(int argc, char **argv)
         std::cout << "socket for pcf" << std::to_string(i) << "-nds-sdn-topic -- " << descriptors[i].fd << std::endl;
     }
     
-    // SDN Publishers configuration
+    // SDN Publishers configuration. For future use for all publishers
     std::array<std::unique_ptr<vnc::VncOutputPublisher>, vnc::kPlasmaParamCount> publishers;
-    for (std::size_t i = 0; i < vnc::kPlasmaParamCount; ++i)
-    {
-        publishers[i].reset(new vnc::VncOutputPublisher(
-            "vnc-mp" + std::to_string(i) + "-topic",
-            resourceDir + "/topics/",
-            outputInterface));
-    }
-
+    // The first publisher for MP12 Fusion Power.
+    publishers[0].reset(new vnc::VncOutputPublisher("vnc-mp12-topic",
+                                                    resourceDir + "/topics/",
+                                                    outputInterface));
     // Receiving the data. Pack it in InputData
     vnc::InputCountRates InputData; // Data from all IOCs
     vnc::MlProcessing processor(resourceDir + "/models/xgb_1_fp_v0_1.onnx"); 
@@ -125,9 +113,14 @@ int main(int argc, char **argv)
         }
     
     }
-    std::cout << "cycles = " << cycles << " skipped periods = " << skippedPeriods
+
+    //Review of the errors
+    std::cout << std::endl;
+    std::cout << " cycles = " << cycles << " skipped periods = " << skippedPeriods
               << " publish errors = " << publishErrors
               << " max wake lateness ns = " << maxWakeLatenessNs
-              << " max work ns = " << maxWorksNs << std::endl;
+              << " max work ns = " << maxWorksNs 
+              << " inference error = " << inferenceErrors << std::endl;
     return 0;
+
     }

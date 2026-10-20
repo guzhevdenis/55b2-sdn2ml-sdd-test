@@ -7,4 +7,5 @@
   <attribute name="CountRate05" dataType="double" description="SIMULATOR count rate channel 05" unit="cps" qualifier="" rank="6"/>
   <attribute name="CountRate06" dataType="double" description="SIMULATOR count rate channel 06" unit="cps" qualifier="" rank="7"/>
   <attribute name="CountRate07" dataType="double" description="SIMULATOR count rate channel 07" unit="cps" qualifier="" rank="8"/>
+  <attribute name="timestamp" dataType="int64" description="Timestmap for PCF4 Count Rates" unit="ns" qualifier="" rank="9"/>
 </topic>

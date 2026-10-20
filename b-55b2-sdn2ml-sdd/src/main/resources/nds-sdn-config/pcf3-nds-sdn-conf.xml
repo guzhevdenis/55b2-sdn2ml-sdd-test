@@ -33,5 +33,9 @@
 <nds-pv name="G-3-CountRate07" type="double" />
 <trigger_pub>yes</trigger_pub>
 </attribute>
+<attribute name = "timestamp">
+<nds-pv name = "G-3-TopicTimestamp" type="int64" /> 
+<trigger_pub>yes</trigger_pub>
+</attribute>
 </topic>
 </nds-sdn>

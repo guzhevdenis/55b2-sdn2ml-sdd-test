@@ -21,6 +21,15 @@ timespec wallClockTimestamp()
     return ts;
 }
 
+std::int64_t monotonicNs()
+{
+    timespec now{}; 
+    if (::clock_gettime(CLOCK_MONOTONIC, &now)!= 0)
+        throw std::runtime_error("clock gettime failed");
+    return static_cast<std::int64_t>(now.tv_sec) * 1000000000LL + now.tv_nsec;
+
+}
+
 const char* kCountRateNames[NdsDaqGenerator::kChannelCount] = {
     "CountRate00", "CountRate01", "CountRate02", "CountRate03",
     "CountRate04", "CountRate05", "CountRate06", "CountRate07"
@@ -56,6 +65,7 @@ NdsDaqGenerator::NdsDaqGenerator(nds::Factory& factory,
     m_baseRatePV = rootNode.addChild(nds::PVVariableOut<double>("BaseRate"));
     m_enablePV = rootNode.addChild(nds::PVVariableOut<std::int32_t>("Enable"));
     m_enableRbvPV = rootNode.addChild(nds::PVVariableIn<std::int32_t>("EnableRBV"));
+    m_topicTimestamp = rootNode.addChild(nds::PVVariableIn<std::int64_t>("TopicTimestamp"));
     m_enableRbvPV.setScanType(nds::scanType_t::interrupt);
 
     rootNode.initialize(this, factory);
@@ -137,6 +147,7 @@ void NdsDaqGenerator::simulationThreadBody()
         if (enabled != 0) {
             const double baseRate = m_baseRatePV.getValue();
             const double noisePhase = static_cast<double>(m_tick) * 0.1;
+            m_topicTimestamp.push(ts,monotonicNs());
             for (std::size_t i = 0; i < kChannelCount; ++i) {
                 const double channelOffset = static_cast<double>(i) * 250.0;
                 const double noise = 50.0 * std::sin(noisePhase + static_cast<double>(i));
