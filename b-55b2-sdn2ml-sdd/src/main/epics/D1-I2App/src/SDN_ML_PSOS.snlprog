@@ -1,4 +1,0 @@
-SDN_ML_PSOS_SNCFLAGS += +r -c +d
-D1-I2_DBD += SDN_ML_PSOS.dbd
-D1-I2_SRCS += SDN_ML_PSOS.st
-D1-I2_LIBS += seq pv

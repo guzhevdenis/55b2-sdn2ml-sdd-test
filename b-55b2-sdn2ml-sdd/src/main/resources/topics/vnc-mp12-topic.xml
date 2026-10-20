@@ -1,4 +1,0 @@
-<topic name="vnc-mp12-topic" version="2.0" description="VNC MP12 fusion power XGB model calculated">
-  <attribute name="fusionPower" dataType="double" description="MP12 Fusion Power" unit="cps" qualifier="" rank="3"/>
-  <attribute name="timestamp" dataType="int64" description="Timestamp for MP12 Fusion Power" unit="ns" qualifier="" rank="4"/>
-</topic>
