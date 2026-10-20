@@ -1,0 +1,21 @@
+[i2a2]   # Naming rules for COSYLAB
+
+toUpper = 1 # All the names will be converted to upper-case
+
+# The separator for the level 0 is empty (nothing is prepended to the root node name)
+separator0 =
+
+separator1 = :   # Example root/node0
+separator2 = -   # Example root/node0-node1
+
+# We don't have a separator for the level 3 and subsequent, so the separator2 will be used
+# for deeper levels
+
+# How do we form the root node name
+rootNode = "%s_DEV"
+
+# Input PV
+inputPV = "GET_%s"
+
+# Output PV
+outputPV = "SET_%s"

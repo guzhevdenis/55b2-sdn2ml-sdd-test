@@ -1,0 +1,82 @@
+# NDS-SDN publisher control PVs (same layout as Oscil_NDS_SDN.db in 55b2-vnc-sdd).
+
+record(ao, "$(PREFIX)-publishingRate") {
+    field(DESC, "Publishing rate (us) for the SDN Topic.")
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(DEVICE), 0)publishingRate")
+    field(PINI, "YES")
+}
+
+record(mbbi, "$(PREFIX)-StateMachine-getGlobalState") {
+    field(DESC, "Get global SDN publisher state")
+    field(DTYP, "asynInt32")
+    field(SCAN, "Passive")
+    field(PINI, 1)
+    field(INP, "@asyn($(DEVICE), 0)StateMachine-getGlobalState")
+    field(ZRVL, 0)
+    field(ZRST, "UNKNOWN")
+    field(ONVL, 1)
+    field(ONST, "OFF")
+    field(TWVL, 2)
+    field(TWST, "SWITCHING_OFF")
+    field(THVL, 3)
+    field(THST, "INITIALIZING")
+    field(FRVL, 4)
+    field(FRST, "ON")
+    field(FVVL, 5)
+    field(FVST, "STOPPING")
+    field(SXVL, 6)
+    field(SXST, "STARTING")
+    field(SVVL, 7)
+    field(SVST, "RUNNING")
+    field(EIVL, 8)
+    field(EIST, "FAULT")
+}
+
+record(mbbi, "$(PREFIX)-StateMachine-getState") {
+    field(DESC, "Get local SDN publisher state")
+    field(DTYP, "asynInt32")
+    field(SCAN, "I/O Intr")
+    field(PINI, 1)
+    field(INP, "@asyn($(DEVICE), 0)StateMachine-getState")
+    field(ZRVL, 0)
+    field(ZRST, "UNKNOWN")
+    field(ONVL, 1)
+    field(ONST, "OFF")
+    field(TWVL, 2)
+    field(TWST, "SWITCHING_OFF")
+    field(THVL, 3)
+    field(THST, "INITIALIZING")
+    field(FRVL, 4)
+    field(FRST, "ON")
+    field(FVVL, 5)
+    field(FVST, "STOPPING")
+    field(SXVL, 6)
+    field(SXST, "STARTING")
+    field(SVVL, 7)
+    field(SVST, "RUNNING")
+    field(EIVL, 8)
+    field(EIST, "FAULT")
+}
+
+record(mbbo, "$(PREFIX)-StateMachine-setState") {
+    field(DESC, "Set local SDN publisher state")
+    field(DTYP, "asynInt32")
+    field(SCAN, "Passive")
+    field(PINI, 1)
+    field(OUT, "@asyn($(DEVICE), 0)StateMachine-setState")
+    field(ONVL, 1)
+    field(ONST, "OFF")
+    field(FRVL, 4)
+    field(FRST, "ON")
+    field(SVVL, 7)
+    field(SVST, "RUNNING")
+}
+
+# HMI helper: 1 when SDN state machine is RUNNING (enum value 7).
+record(calcout, "$(PREFIX)-Publishing") {
+    field(DESC, "SDN publisher is RUNNING")
+    field(INPA, "$(PREFIX)-StateMachine-getState CP")
+    field(CALC, "A=7")
+    field(OOPT, "Every Time")
+}
