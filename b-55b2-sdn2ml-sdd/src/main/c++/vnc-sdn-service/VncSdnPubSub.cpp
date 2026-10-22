@@ -69,7 +69,8 @@ namespace vnc
     }
 
     VncOutputPublisher::VncOutputPublisher(const std::string &name, const std::string &directory,
-                                           const std::string &interface)
+                                           const std::string &interface, const std::string &valueAttribute)
+        : m_valueAttribute(valueAttribute)
     {
         parseXmlTopic(m_topic, name, directory);
 
@@ -88,8 +89,12 @@ namespace vnc
 
     bool VncOutputPublisher::publish(const OutputData& output)
     {
-        // Logic for one topic only
-        if (!m_topic.SetAttribute("fusionPower", &output.outputValue) || !m_topic.SetAttribute("timestamp", &output.timestamp)) return false;;
+        const std::int64_t quality = static_cast<std::int64_t>(output.quality);
+        if (!m_topic.SetAttribute(m_valueAttribute.c_str(), &output.value) ||
+            !m_topic.SetAttribute("timestamp", &output.timestamp) ||
+            !m_topic.SetAttribute("inputTimestamp", &output.inputTimestamp) ||
+            !m_topic.SetAttribute("cycleId", &output.cycleId) ||
+            !m_topic.SetAttribute("quality", &quality)) return false;
         return m_publisher->Publish() == STATUS_SUCCESS;
     }
 }

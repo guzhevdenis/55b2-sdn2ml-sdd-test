@@ -15,7 +15,7 @@ CPPFLAGS += -I$(CODAC_ROOT)/include -I/usr/include/libxml2 -I$(ONNX_ROOT)/includ
 CXXFLAGS += -std=c++17 -O2 -g -Wall -Wextra -pthread
 LDFLAGS += -L$(CODAC_ROOT)/lib -Wl,-rpath,$(CODAC_ROOT)/lib -L$(ONNX_ROOT)/lib -Wl,-rpath,$(ONNX_ROOT)/lib
 LDLIBS += -lsdn-core -lccs-core -lxml2 -llog -lrt -lpthread -l:libonnxruntime.so.1
-SOURCES = vnc-sdn-service.cpp VncSdnPubSub.cpp VncDataProcessing.cpp Timestamping.cpp
+SOURCES = vnc-sdn-service.cpp VncSdnPubSub.cpp VncDataProcessing.cpp VncModelPool.cpp Timestamping.cpp
 OBJECTS = $(addprefix $(OBJECT_DIR)/,$(SOURCES:.cpp=.o))
 TOPICS = $(wildcard ../../resources/pcf*-nds-sdn-topic.xml) ../../resources/vnc-mp1-topic.xml
 

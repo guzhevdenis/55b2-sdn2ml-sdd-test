@@ -29,12 +29,13 @@ namespace vnc
     {
     public:
         VncOutputPublisher(const std::string &name, const std::string &directory,
-                           const std::string &interface);
+                           const std::string &interface, const std::string &valueAttribute);
         bool publish(const OutputData &data);
 
     private:
         sdn::Topic m_topic;
         std::unique_ptr<sdn::Publisher> m_publisher;
+        std::string m_valueAttribute;
     };
 }
 #endif

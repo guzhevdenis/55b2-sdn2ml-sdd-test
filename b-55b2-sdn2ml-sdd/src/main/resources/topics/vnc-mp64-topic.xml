@@ -1,0 +1,7 @@
+<topic name="vnc-mp64-topic" version="1.0" description="VNC MP64 ML model calculated">
+  <attribute name="value" dataType="double" description="MP64 value" unit="" qualifier="" rank="1"/>
+  <attribute name="timestamp" dataType="int64" description="Publish time for MP64 value" unit="ns" qualifier="" rank="2"/>
+  <attribute name="inputTimestamp" dataType="int64" description="Cycle start of the input count rates" unit="ns" qualifier="" rank="3"/>
+  <attribute name="cycleId" dataType="int64" description="Cycle number, the same in all VNC MP topics of one cycle" unit="" qualifier="" rank="4"/>
+  <attribute name="quality" dataType="int64" description="0 - ok, 1 - stale, 2 - invalid" unit="" qualifier="" rank="5"/>
+</topic>

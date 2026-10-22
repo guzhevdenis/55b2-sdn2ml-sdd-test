@@ -1,4 +1,7 @@
-<topic name="vnc-mp12-topic" version="2.0" description="VNC MP12 fusion power XGB model calculated">
+<topic name="vnc-mp12-topic" version="3.0" description="VNC MP12 fusion power XGB model calculated">
   <attribute name="fusionPower" dataType="double" description="MP12 Fusion Power" unit="cps" qualifier="" rank="3"/>
-  <attribute name="timestamp" dataType="int64" description="Timestamp for MP12 Fusion Power" unit="ns" qualifier="" rank="4"/>
+  <attribute name="timestamp" dataType="int64" description="Publish time for MP12 Fusion Power" unit="ns" qualifier="" rank="4"/>
+  <attribute name="inputTimestamp" dataType="int64" description="Cycle start of the input count rates" unit="ns" qualifier="" rank="5"/>
+  <attribute name="cycleId" dataType="int64" description="Cycle number, the same in all VNC MP topics of one cycle" unit="" qualifier="" rank="6"/>
+  <attribute name="quality" dataType="int64" description="0 - ok, 1 - stale, 2 - invalid" unit="" qualifier="" rank="7"/>
 </topic>
